@@ -107,14 +107,9 @@ namespace MemberFroms
                             // Assign password if provided
                             ApplicationContext.Current.Services.MemberService.SavePassword(newMember, password);
 
-                            // Clear password field to avoid storing plaintext passwords. Thanks: James Costerton! :)
+                            // Clear password field to avoid storing plaintext passwords. Thanks: James Costerton and Darren Wilson! :)
                             var field = record.RecordFields.Values.First(p => p.Field.Caption == this.Password);
                             field.Values = new List<object>();
-
-                            // If we altered a field, we can save it using the record storage
-                            var store = new RecordStorage();
-                            store.UpdateRecord(record, e.Form);
-                            store.Dispose();
                         }
 
                         if (!string.IsNullOrEmpty(value: memberGroupName))
